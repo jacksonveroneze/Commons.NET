@@ -3,6 +3,7 @@
   <PropertyGroup>
     <LangVersion>default</LangVersion>
     <TargetFrameworks>net5.0</TargetFrameworks>
+    <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
   </PropertyGroup>
 
   <ItemGroup>
