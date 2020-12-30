@@ -1,8 +1,8 @@
 name: Create Package
 
 on:
+  workflow_dispatch:
   release:
-    workflow_dispatch:
     types: [published]
 
 env:
