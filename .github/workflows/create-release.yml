@@ -36,7 +36,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Pack
-      run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }}
+      run: dotnet pack -c Release /p:Version=${{ github.ref }}
 
     - name: Publish Package
       run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/jacksonveroneze/index.json" --no-symbols true
