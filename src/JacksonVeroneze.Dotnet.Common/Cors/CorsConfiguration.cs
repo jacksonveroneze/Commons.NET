@@ -12,7 +12,7 @@ namespace JacksonVeroneze.Dotnet.Common.Cors
 
             action.Invoke(corsOptions);
 
-            services.AddCors(options =>
+            return services.AddCors(options =>
             {
                 options.AddPolicy(corsOptions.Policy,
                     builder =>
