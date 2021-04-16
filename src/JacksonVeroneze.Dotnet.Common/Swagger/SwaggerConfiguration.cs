@@ -43,8 +43,7 @@ namespace JacksonVeroneze.Dotnet.Common.Swagger
                     {
                         new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference
-                                {Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                            Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "Bearer"}
                         },
                         new string[] { }
                     }
@@ -54,7 +53,7 @@ namespace JacksonVeroneze.Dotnet.Common.Swagger
             return services;
         }
 
-        public static IApplicationBuilder UseSwaggerSetup(this IApplicationBuilder app,
+        public static IApplicationBuilder UseSwagger(this IApplicationBuilder app,
             IApiVersionDescriptionProvider provider)
         {
             app.UseSwagger();
