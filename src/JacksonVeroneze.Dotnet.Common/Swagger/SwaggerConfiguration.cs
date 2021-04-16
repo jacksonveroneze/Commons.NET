@@ -8,7 +8,7 @@ namespace JacksonVeroneze.Dotnet.Common.Swagger
 {
     public static class SwaggerConfiguration
     {
-        public static IServiceCollection AddSwagger(this IServiceCollection services, Action<SwaggerOptions> action)
+        public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services, Action<SwaggerOptions> action)
         {
             SwaggerOptions swaggerOptions = new SwaggerOptions();
 
@@ -53,7 +53,7 @@ namespace JacksonVeroneze.Dotnet.Common.Swagger
             return services;
         }
 
-        public static IApplicationBuilder UseSwagger(this IApplicationBuilder app,
+        public static IApplicationBuilder UseSwaggerConfiguration(this IApplicationBuilder app,
             IApiVersionDescriptionProvider provider)
         {
             app.UseSwagger();
