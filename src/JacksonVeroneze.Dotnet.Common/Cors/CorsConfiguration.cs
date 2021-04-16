@@ -1,0 +1,28 @@
+using System;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace JacksonVeroneze.Dotnet.Common.Cors
+{
+    public static class CorsConfiguration
+    {
+        public static IServiceCollection AddCorsConfiguration(this IServiceCollection services,
+            Action<CorsOptions> action)
+        {
+            CorsOptions corsOptions = new CorsOptions();
+
+            action.Invoke(corsOptions);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(corsOptions.Policy,
+                    builder =>
+                    {
+                        builder
+                            .WithOrigins(corsOptions.UrlsAllow.Split(";"))
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
+            });
+        }
+    }
+}
