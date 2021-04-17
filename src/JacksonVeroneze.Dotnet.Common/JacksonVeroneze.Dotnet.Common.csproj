@@ -38,4 +38,9 @@
         <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.0.0-rc1.1" />
 
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Api\Util" />
+      <Folder Include="Middlewares" />
+    </ItemGroup>
 </Project>
