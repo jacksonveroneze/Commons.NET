@@ -18,7 +18,7 @@ namespace JacksonVeroneze.Dotnet.Common.Cors
                     builder =>
                     {
                         builder
-                            .WithOrigins(corsOptions.UrlsAllow.Split(";"))
+                            .WithOrigins(corsOptions.UrlsAllowed)
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                     });

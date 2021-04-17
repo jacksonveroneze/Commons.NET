@@ -4,6 +4,6 @@ namespace JacksonVeroneze.Dotnet.Common.Cors
     {
         public string Policy { get; set; }
         
-        public string UrlsAllow { get; set; }
+        public string[] UrlsAllowed { get; set; }
     }
 }
