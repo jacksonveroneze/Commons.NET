@@ -6,7 +6,6 @@ on:
       - created
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  DOTNET_ROOT: "/home/runner/.dotnet/app"
 
 jobs:
   build:
@@ -30,4 +29,4 @@ jobs:
         run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }}
 
       - name: Publish Package
-        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/jacksonveroneze/index.json" --no-symbols true
+        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_PUBLISH_KEY }} --no-symbols true
