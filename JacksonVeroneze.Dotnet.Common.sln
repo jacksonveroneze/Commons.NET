@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FC66AB4E-9B6C-4990-AA67-E84F383CD7BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacksonVeroneze.Dotnet.Common", "src\JacksonVeroneze.Dotnet.Common\JacksonVeroneze.Dotnet.Common.csproj", "{3FE5AE5C-77AF-41E5-BA65-DC09CADCE4EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacksonVeroneze.Dotnet.Commons", "src\JacksonVeroneze.Dotnet.Commons\JacksonVeroneze.Dotnet.Commons.csproj", "{3FE5AE5C-77AF-41E5-BA65-DC09CADCE4EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
