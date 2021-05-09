@@ -14,20 +14,27 @@ namespace JacksonVeroneze.NET.Commons.Logger
 
             action.Invoke(optionsCfg);
 
-            return new LoggerConfiguration()
-                .ReadFrom.Configuration(FactoryConfiguration(optionsCfg))
+            IConfigurationRoot configuration = FactoryConfiguration(optionsCfg);
+
+            LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
                 .Enrich.WithProperty("ApplicationName", optionsCfg.ApplicationName)
                 .Enrich.WithProperty("Environment", optionsCfg.Environment)
                 .Enrich.FromLogContext()
                 .Enrich.WithMachineName()
                 .Enrich.WithEnvironmentUserName()
                 .Enrich.WithDemystifiedStackTraces()
+                .Enrich.FromLogContext()
                 .WriteTo.Console(
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj} {Properties:j}{NewLine}{Exception}{NewLine}",
-                    theme: AnsiConsoleTheme.Literate)
-                .Enrich.FromLogContext()
-                .CreateLogger();
+                    theme: AnsiConsoleTheme.Literate);
+
+            if (string.IsNullOrEmpty(configuration["ApplicationInsights_InstrumentationKey"]) is false)
+                loggerConfiguration.WriteTo.ApplicationInsights(configuration["ApplicationInsights_InstrumentationKey"],
+                    TelemetryConverter.Events);
+
+            return loggerConfiguration.CreateLogger();
         }
 
         private static IConfigurationRoot FactoryConfiguration(LoggerOptions optionsCfg)
