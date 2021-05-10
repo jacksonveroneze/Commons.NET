@@ -8,17 +8,17 @@ namespace JacksonVeroneze.NET.Commons.Cors
         public static IServiceCollection AddCorsConfiguration(this IServiceCollection services,
             Action<CorsOptions> action)
         {
-            CorsOptions corsOptions = new CorsOptions();
+            CorsOptions optionsConfig = new CorsOptions();
 
-            action.Invoke(corsOptions);
+            action.Invoke(optionsConfig);
 
             return services.AddCors(options =>
             {
-                options.AddPolicy(corsOptions.Policy,
+                options.AddPolicy(optionsConfig.Policy,
                     builder =>
                     {
                         builder
-                            .WithOrigins(corsOptions.UrlsAllowed)
+                            .WithOrigins(optionsConfig.UrlsAllowed)
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                     });

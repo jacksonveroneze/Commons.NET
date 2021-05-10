@@ -9,12 +9,12 @@ namespace JacksonVeroneze.NET.Commons.Authentication
         public static IServiceCollection AddAuthenticationConfiguration(this IServiceCollection services,
             Action<AuthenticationOptions> action)
         {
-            AuthenticationOptions authenticationOptions = new AuthenticationOptions();
+            AuthenticationOptions optionsConfig = new AuthenticationOptions();
 
-            action.Invoke(authenticationOptions);
+            action.Invoke(optionsConfig);
 
-            if (string.IsNullOrEmpty(authenticationOptions.Audience) ||
-                string.IsNullOrEmpty(authenticationOptions.Authority))
+            if (string.IsNullOrEmpty(optionsConfig.Audience) ||
+                string.IsNullOrEmpty(optionsConfig.Authority))
                 throw new ArgumentException("Configuração do JWT não definida corretamente.");
 
             services.AddAuthentication(options =>
@@ -23,8 +23,8 @@ namespace JacksonVeroneze.NET.Commons.Authentication
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = authenticationOptions.Authority;
-                options.Audience = authenticationOptions.Audience;
+                options.Authority = optionsConfig.Authority;
+                options.Audience = optionsConfig.Audience;
             });
 
             return services;

@@ -10,27 +10,27 @@ namespace JacksonVeroneze.NET.Commons.Logger
     {
         public static ILogger FactoryLogger(Action<LoggerOptions> action)
         {
-            LoggerOptions optionsCfg = new LoggerOptions();
+            LoggerOptions optionsConfig = new LoggerOptions();
 
-            action.Invoke(optionsCfg);
+            action.Invoke(optionsConfig);
 
-            IConfigurationRoot configuration = FactoryConfiguration(optionsCfg);
+            IConfigurationRoot configuration = FactoryConfiguration(optionsConfig);
 
             LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
-                .Enrich.WithProperty("ApplicationName", optionsCfg.ApplicationName)
-                .Enrich.WithProperty("Environment", optionsCfg.Environment)
+                .Enrich.WithProperty("ApplicationName", optionsConfig.ApplicationName)
+                .Enrich.WithProperty("Environment", optionsConfig.Environment)
                 .Enrich.FromLogContext()
                 .Enrich.WithMachineName()
                 .Enrich.WithEnvironmentUserName()
                 .Enrich.WithDemystifiedStackTraces()
-                .Enrich.FromLogContext()
                 .WriteTo.Console(
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj} {Properties:j}{NewLine}{Exception}{NewLine}",
                     theme: AnsiConsoleTheme.Literate);
 
-            if (string.IsNullOrEmpty(configuration["ApplicationInsights_InstrumentationKey"]) is false)
+            if (optionsConfig.EnableApplicationInsights is true &&
+                string.IsNullOrEmpty(configuration["ApplicationInsights_InstrumentationKey"]) is false)
                 loggerConfiguration.WriteTo.ApplicationInsights(configuration["ApplicationInsights_InstrumentationKey"],
                     TelemetryConverter.Events);
 

@@ -8,21 +8,22 @@ namespace JacksonVeroneze.NET.Commons.Swagger
 {
     public static class SwaggerConfiguration
     {
-        public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services, Action<SwaggerOptions> action)
+        public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services,
+            Action<SwaggerOptions> action)
         {
-            SwaggerOptions swaggerOptions = new SwaggerOptions();
+            SwaggerOptions optionsConfig = new SwaggerOptions();
 
-            action.Invoke(swaggerOptions);
+            action.Invoke(optionsConfig);
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc(swaggerOptions.Version, new OpenApiInfo
+                c.SwaggerDoc(optionsConfig.Version, new OpenApiInfo
                     {
-                        Title = swaggerOptions.Title,
-                        Version = swaggerOptions.Version,
-                        Description = swaggerOptions.Description,
+                        Title = optionsConfig.Title,
+                        Version = optionsConfig.Version,
+                        Description = optionsConfig.Description,
                         Contact = new OpenApiContact
-                            {Name = swaggerOptions.ContactName, Email = swaggerOptions.ContactEmail},
+                            {Name = optionsConfig.ContactName, Email = optionsConfig.ContactEmail},
                         License = new OpenApiLicense
                             {Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT")}
                     }

@@ -9,14 +9,13 @@ namespace JacksonVeroneze.NET.Commons.ApiVersioning
         public static IServiceCollection AddApiVersioningConfiguration(this IServiceCollection services,
             Action<ApiVersioningOptions> action)
         {
-            ApiVersioningOptions apiVersioningOptions = new ApiVersioningOptions();
+            ApiVersioningOptions optionsConfig = new ApiVersioningOptions();
 
-            action.Invoke(apiVersioningOptions);
+            action.Invoke(optionsConfig);
 
             services.AddApiVersioning(p =>
             {
-                p.DefaultApiVersion =
-                    new ApiVersion(apiVersioningOptions.MajorVersion, apiVersioningOptions.MinorVersion);
+                p.DefaultApiVersion = new ApiVersion(optionsConfig.MajorVersion, optionsConfig.MinorVersion);
                 p.ReportApiVersions = true;
                 p.AssumeDefaultVersionWhenUnspecified = true;
             });

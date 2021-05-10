@@ -10,14 +10,14 @@ namespace JacksonVeroneze.NET.Commons.Authorization
         public static IServiceCollection AddAuthorizationConfiguration(this IServiceCollection services,
             Action<AuthorizationOptionss> action)
         {
-            AuthorizationOptionss authorizationOptions = new AuthorizationOptionss();
+            AuthorizationOptionss optionsConfig = new AuthorizationOptionss();
 
-            action.Invoke(authorizationOptions);
+            action.Invoke(optionsConfig);
 
             services.AddAuthorization(options =>
             {
-                foreach (string customPolice in authorizationOptions.Polices)
-                    options.AddCustomPolicy(customPolice, authorizationOptions.Authority);
+                foreach (string customPolice in optionsConfig.Polices)
+                    options.AddCustomPolicy(customPolice, optionsConfig.Authority);
             });
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();

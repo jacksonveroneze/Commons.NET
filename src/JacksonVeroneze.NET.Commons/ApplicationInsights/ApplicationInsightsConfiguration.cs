@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Microsoft.ApplicationInsights.DependencyCollector;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,18 +10,18 @@ namespace JacksonVeroneze.NET.Commons.ApplicationInsights
         public static IServiceCollection AddApplicationInsightsConfiguration(this IServiceCollection services,
             Action<ApplicationInsightsOptions> action)
         {
-            ApplicationInsightsOptions applicationInsightsOptions = new ApplicationInsightsOptions();
+            ApplicationInsightsOptions optionsConfig = new ApplicationInsightsOptions();
 
-            action.Invoke(applicationInsightsOptions);
+            action.Invoke(optionsConfig);
 
-            if (string.IsNullOrEmpty(applicationInsightsOptions.InstrumentationKey) is false)
-                services.AddApplicationInsightsTelemetry(applicationInsightsOptions.InstrumentationKey);
+            if (string.IsNullOrEmpty(optionsConfig.InstrumentationKey) is false)
+                services.AddApplicationInsightsTelemetry(optionsConfig.InstrumentationKey);
 
-            services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) =>
-            {
-                module.EnableSqlCommandTextInstrumentation = true;
-                module.EnableRequestIdHeaderInjectionInW3CMode = true;
-            });
+            services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, _) =>
+                module.EnableSqlCommandTextInstrumentation = true);
+
+            Activity.DefaultIdFormat = ActivityIdFormat.Hierarchical;
+            Activity.ForceDefaultIdFormat = true;
 
             return services;
         }

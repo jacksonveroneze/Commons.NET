@@ -7,5 +7,7 @@ namespace JacksonVeroneze.NET.Commons.Logger
         public string Environment { get; set; }
 
         public string CurrentDirectory { get; set; }
+
+        public bool EnableApplicationInsights { get; set; } = false;
     }
 }

@@ -11,20 +11,20 @@ namespace JacksonVeroneze.NET.Commons.OpenTelemetry
         public static IServiceCollection AddOpenTelemetryTracingConfiguration(this IServiceCollection services,
             Action<OpenTelemetryTracingOptions> action)
         {
-            OpenTelemetryTracingOptions optionsCfg = new OpenTelemetryTracingOptions();
+            OpenTelemetryTracingOptions optionsConfig = new OpenTelemetryTracingOptions();
 
-            action.Invoke(optionsCfg);
+            action.Invoke(optionsConfig);
 
             return services.AddOpenTelemetryTracing(
                 builder => builder
-                    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(optionsCfg.ApplicationName))
+                    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(optionsConfig.ApplicationName))
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddSqlClientInstrumentation(options => { options.SetTextCommandContent = true; })
                     .AddJaegerExporter(options =>
                     {
-                        options.AgentHost = optionsCfg.JaegerAgentHost;
-                        options.AgentPort = optionsCfg.JaegerAgentPort;
+                        options.AgentHost = optionsConfig.JaegerAgentHost;
+                        options.AgentPort = optionsConfig.JaegerAgentPort;
                     })
                     .AddConsoleExporter());
         }
