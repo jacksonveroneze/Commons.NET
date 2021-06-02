@@ -6,7 +6,7 @@ namespace JacksonVeroneze.NET.Commons.Database
 {
     public static class DatabaseConfiguration
     {
-        public static IServiceCollection AddDatabaseConfiguration<T>(this IServiceCollection services,
+        public static IServiceCollection AddSqlServerDatabaseConfiguration<T>(this IServiceCollection services,
             Action<DatabaseOptions> action) where T: DbContext
         {
             DatabaseOptions optionsConfig = new DatabaseOptions();
