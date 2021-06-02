@@ -16,17 +16,22 @@ namespace JacksonVeroneze.NET.Commons.OpenTelemetry
             action.Invoke(optionsConfig);
 
             return services.AddOpenTelemetryTracing(
-                builder => builder
-                    .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(optionsConfig.ApplicationName))
-                    .AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddSqlClientInstrumentation(options => { options.SetTextCommandContent = true; })
-                    .AddJaegerExporter(options =>
-                    {
-                        options.AgentHost = optionsConfig.JaegerAgentHost;
-                        options.AgentPort = optionsConfig.JaegerAgentPort;
-                    })
-                    .AddConsoleExporter());
+                builder =>
+                {
+                    builder
+                        .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(optionsConfig.ApplicationName))
+                        .AddAspNetCoreInstrumentation()
+                        .AddHttpClientInstrumentation()
+                        .AddSqlClientInstrumentation(options => { options.SetTextCommandContent = true; })
+                        .AddJaegerExporter(options =>
+                        {
+                            options.AgentHost = optionsConfig.JaegerAgentHost;
+                            options.AgentPort = optionsConfig.JaegerAgentPort;
+                        });
+
+                    if (optionsConfig.ShowConsoleExporter)
+                        builder.AddConsoleExporter();
+                });
         }
     }
 }
