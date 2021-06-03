@@ -22,8 +22,10 @@ namespace JacksonVeroneze.NET.Commons.OpenTelemetry
                         .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(optionsConfig.ApplicationName))
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
-                        .AddSqlClientInstrumentation(options => { options.SetTextCommandContent = true; })
-                        .AddJaegerExporter(options =>
+                        .AddSqlClientInstrumentation(options => { options.SetTextCommandContent = true; });
+
+                    if (optionsConfig.UseJaeger)
+                        builder.AddJaegerExporter(options =>
                         {
                             options.AgentHost = optionsConfig.JaegerAgentHost;
                             options.AgentPort = optionsConfig.JaegerAgentPort;
