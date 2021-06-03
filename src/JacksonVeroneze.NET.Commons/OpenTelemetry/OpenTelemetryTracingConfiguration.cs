@@ -13,7 +13,7 @@ namespace JacksonVeroneze.NET.Commons.OpenTelemetry
         {
             OpenTelemetryTracingOptions optionsConfig = new OpenTelemetryTracingOptions();
 
-            action.Invoke(optionsConfig);
+            action?.Invoke(optionsConfig);
 
             return services.AddOpenTelemetryTracing(
                 builder =>

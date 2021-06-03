@@ -11,7 +11,7 @@ namespace JacksonVeroneze.NET.Commons.Authentication
         {
             AuthenticationOptions optionsConfig = new AuthenticationOptions();
 
-            action.Invoke(optionsConfig);
+            action?.Invoke(optionsConfig);
 
             if (string.IsNullOrEmpty(optionsConfig.Audience) ||
                 string.IsNullOrEmpty(optionsConfig.Authority))

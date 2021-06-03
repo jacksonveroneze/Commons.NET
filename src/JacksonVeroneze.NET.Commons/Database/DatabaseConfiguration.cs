@@ -7,11 +7,11 @@ namespace JacksonVeroneze.NET.Commons.Database
     public static class DatabaseConfiguration
     {
         public static IServiceCollection AddSqlServerDatabaseConfiguration<T>(this IServiceCollection services,
-            Action<DatabaseOptions> action) where T: DbContext
+            Action<DatabaseOptions> action) where T : DbContext
         {
             DatabaseOptions optionsConfig = new DatabaseOptions();
 
-            action.Invoke(optionsConfig);
+            action?.Invoke(optionsConfig);
 
             return services.AddDbContext<T>((_, options) =>
                 options
@@ -22,6 +22,22 @@ namespace JacksonVeroneze.NET.Commons.Database
                                 .CommandTimeout((int) TimeSpan.FromMinutes(3).TotalSeconds)
                                 .EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
                         })
+                    .UseLazyLoadingProxies()
+                    .UseSnakeCaseNamingConvention()
+                    .EnableDetailedErrors()
+                    .EnableSensitiveDataLogging());
+        }
+
+        public static IServiceCollection AddSqliteDatabaseConfiguration<T>(this IServiceCollection services,
+            Action<DatabaseOptions> action) where T : DbContext
+        {
+            DatabaseOptions optionsConfig = new DatabaseOptions();
+
+            action?.Invoke(optionsConfig);
+
+            return services.AddDbContext<T>((_, options) =>
+                options
+                    .UseSqlite(optionsConfig.ConnectionString)
                     .UseLazyLoadingProxies()
                     .UseSnakeCaseNamingConvention()
                     .EnableDetailedErrors()

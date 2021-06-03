@@ -11,7 +11,7 @@ namespace JacksonVeroneze.NET.Commons.ApiVersioning
         {
             ApiVersioningOptions optionsConfig = new ApiVersioningOptions();
 
-            action.Invoke(optionsConfig);
+            action?.Invoke(optionsConfig);
 
             services.AddApiVersioning(p =>
             {

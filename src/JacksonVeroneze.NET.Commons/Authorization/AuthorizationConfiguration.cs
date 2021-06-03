@@ -12,7 +12,7 @@ namespace JacksonVeroneze.NET.Commons.Authorization
         {
             AuthorizationOptionss optionsConfig = new AuthorizationOptionss();
 
-            action.Invoke(optionsConfig);
+            action?.Invoke(optionsConfig);
 
             services.AddAuthorization(options =>
             {

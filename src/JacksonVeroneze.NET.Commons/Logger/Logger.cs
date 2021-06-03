@@ -12,7 +12,7 @@ namespace JacksonVeroneze.NET.Commons.Logger
         {
             LoggerOptions optionsConfig = new LoggerOptions();
 
-            action.Invoke(optionsConfig);
+            action?.Invoke(optionsConfig);
 
             IConfigurationRoot configuration = FactoryConfiguration(optionsConfig);
 

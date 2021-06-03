@@ -12,7 +12,7 @@ namespace JacksonVeroneze.NET.Commons.ApplicationInsights
         {
             ApplicationInsightsOptions optionsConfig = new ApplicationInsightsOptions();
 
-            action.Invoke(optionsConfig);
+            action?.Invoke(optionsConfig);
 
             if (string.IsNullOrEmpty(optionsConfig.InstrumentationKey) is false)
                 services.AddApplicationInsightsTelemetry(optionsConfig.InstrumentationKey);

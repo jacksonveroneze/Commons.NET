@@ -13,23 +13,29 @@ namespace JacksonVeroneze.NET.Commons.Swagger
         {
             SwaggerOptions optionsConfig = new SwaggerOptions();
 
-            action.Invoke(optionsConfig);
+            action?.Invoke(optionsConfig);
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(options =>
             {
-                c.SwaggerDoc(optionsConfig.Version, new OpenApiInfo
+                options.SwaggerDoc(optionsConfig.Version, new OpenApiInfo
                     {
                         Title = optionsConfig.Title,
                         Version = optionsConfig.Version,
                         Description = optionsConfig.Description,
                         Contact = new OpenApiContact
-                            {Name = optionsConfig.ContactName, Email = optionsConfig.ContactEmail},
+                        {
+                            Name = optionsConfig.ContactName,
+                            Email = optionsConfig.ContactEmail
+                        },
                         License = new OpenApiLicense
-                            {Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT")}
+                        {
+                            Name = "MIT",
+                            Url = new Uri("https://opensource.org/licenses/MIT")
+                        }
                     }
                 );
 
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "Input the JWT like: Bearer {your token}",
                     Name = "Authorization",
@@ -39,12 +45,16 @@ namespace JacksonVeroneze.NET.Commons.Swagger
                     Type = SecuritySchemeType.ApiKey,
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
                         },
                         new string[] { }
                     }
@@ -58,13 +68,12 @@ namespace JacksonVeroneze.NET.Commons.Swagger
             IApiVersionDescriptionProvider provider)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            app.UseSwaggerUI(options =>
             {
-                c.RoutePrefix = String.Empty;
+                options.RoutePrefix = String.Empty;
 
                 foreach (var description in provider.ApiVersionDescriptions)
-                    c.SwaggerEndpoint(
-                        $"/swagger/{description.GroupName}/swagger.json",
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
                         description.GroupName.ToUpperInvariant());
             });
 
