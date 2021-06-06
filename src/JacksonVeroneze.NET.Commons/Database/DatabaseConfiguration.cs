@@ -28,6 +28,28 @@ namespace JacksonVeroneze.NET.Commons.Database
                     .EnableSensitiveDataLogging());
         }
 
+        public static IServiceCollection AddPostgreSqlDatabaseConfiguration<T>(this IServiceCollection services,
+            Action<DatabaseOptions> action) where T : DbContext
+        {
+            DatabaseOptions optionsConfig = new DatabaseOptions();
+
+            action?.Invoke(optionsConfig);
+
+            return services.AddDbContext<T>((_, options) =>
+                options
+                    .UseNpgsql(optionsConfig.ConnectionString,
+                        optionsBuilder =>
+                        {
+                            optionsBuilder
+                                .CommandTimeout((int) TimeSpan.FromMinutes(3).TotalSeconds)
+                                .EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null!);
+                        })
+                    .UseLazyLoadingProxies()
+                    .UseSnakeCaseNamingConvention()
+                    .EnableDetailedErrors()
+                    .EnableSensitiveDataLogging());
+        }
+
         public static IServiceCollection AddSqliteDatabaseConfiguration<T>(this IServiceCollection services,
             Action<DatabaseOptions> action) where T : DbContext
         {
