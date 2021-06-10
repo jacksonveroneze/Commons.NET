@@ -18,11 +18,11 @@ namespace JacksonVeroneze.NET.Commons.Logger
 
             LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
-                .Enrich.WithProperty("ApplicationName", optionsConfig.ApplicationName)
-                .Enrich.WithProperty("Environment", optionsConfig.Environment)
+                //.Enrich.WithProperty("ApplicationName", optionsConfig.ApplicationName)
+                //.Enrich.WithProperty("Environment", optionsConfig.Environment)
                 .Enrich.FromLogContext()
-                .Enrich.WithMachineName()
-                .Enrich.WithEnvironmentUserName()
+                //.Enrich.WithMachineName()
+                //.Enrich.WithEnvironmentUserName()
                 .Enrich.WithDemystifiedStackTraces()
                 .WriteTo.Console(
                     outputTemplate:
