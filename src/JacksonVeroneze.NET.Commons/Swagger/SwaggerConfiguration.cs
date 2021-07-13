@@ -59,6 +59,9 @@ namespace JacksonVeroneze.NET.Commons.Swagger
                         new string[] { }
                     }
                 });
+
+                if (optionsConfig.IncludeXmlComments)
+                    options.IncludeXmlComments(optionsConfig.XmlCommentsPath);
             });
 
             return services;
