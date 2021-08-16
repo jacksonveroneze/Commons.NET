@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JacksonVeroneze.NET.Commons.DomainObjects;
 
 namespace JacksonVeroneze.NET.Commons.Data
 {
-    public interface IRepository<TEntity, in TId> where TEntity : EntityRoot where TId : EntityId
+    public interface IRepository<TEntity, in TId> where TEntity : EntityRoot, IDisposable where TId : EntityId
     {
         public IUnitOfWork UnitOfWork { get; set; }
 

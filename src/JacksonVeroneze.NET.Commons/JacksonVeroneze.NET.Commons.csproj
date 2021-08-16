@@ -53,4 +53,8 @@
         <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.0.0-rc1.1" />
         <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.0.0-rc1.1" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Middlewares" />
+    </ItemGroup>
 </Project>
