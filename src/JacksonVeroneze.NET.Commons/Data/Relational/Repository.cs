@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JacksonVeroneze.NET.Commons.DomainObjects;
 using Microsoft.EntityFrameworkCore;
@@ -36,40 +37,40 @@ namespace JacksonVeroneze.NET.Commons.Data.Relational
         public ValueTask<TEntity> FindAsync(TId simpleId)
             => DbSet.FindAsync(simpleId.Id);
 
-        public Task<TEntity> FindAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>
-            => BuidQueryable(new Pagination(), filter)
+        public Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
+            => BuidQueryable(new Pagination(), expression)
                 .FirstOrDefaultAsync();
 
-        public Task<List<TEntity>> FilterAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>
-            => BuidQueryable(new Pagination(), filter)
+        public Task<List<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> expression)
+            => BuidQueryable(new Pagination(), expression)
                 .ToListAsync();
 
-        public Task<List<TEntity>> FilterAsync<TFilter>(Pagination pagination, TFilter filter)
-            where TFilter : BaseFilter<TEntity>
-            => BuidQueryable(pagination, filter)
+        public Task<List<TEntity>> FilterAsync(Pagination pagination, Expression<Func<TEntity, bool>> expression)
+            => BuidQueryable(pagination, expression)
                 .ToListAsync();
 
-        public async Task<Pageable<TEntity>> FilterPaginateAsync<TFilter>(Pagination pagination, TFilter filter)
-            where TFilter : BaseFilter<TEntity>
+        public async Task<Pageable<TEntity>> FilterPaginateAsync(Pagination pagination,
+            Expression<Func<TEntity, bool>> expression)
+
         {
-            int total = await CountAsync(filter);
+            int total = await CountAsync(expression);
 
-            List<TEntity> data = await BuidQueryable(pagination, filter).ToListAsync();
+            List<TEntity> data = await BuidQueryable(pagination, expression).ToListAsync();
 
             return FactoryPageable(data, total, pagination.Skip ??= 0, pagination.Take ??= 30);
         }
 
-        public Task<int> CountAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>
+        public Task<int> CountAsync(Expression<Func<TEntity, bool>> expression)
             => DbSet
                 .AsNoTracking()
-                .Where(filter.ToQuery())
+                .Where(expression)
                 .CountAsync();
 
-        private IQueryable<TEntity> BuidQueryable<TFilter>(Pagination pagination, TFilter filter)
-            where TFilter : BaseFilter<TEntity>
+        private IQueryable<TEntity> BuidQueryable(Pagination pagination, Expression<Func<TEntity, bool>> expression)
+
         {
             return DbSet
-                .Where(filter.ToQuery())
+                .Where(expression)
                 .OrderByDescending(x => x.CreatedAt)
                 .ConfigureSkipTakeFromPagination(pagination);
         }

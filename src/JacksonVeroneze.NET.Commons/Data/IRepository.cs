@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JacksonVeroneze.NET.Commons.DomainObjects;
 
@@ -16,16 +18,14 @@ namespace JacksonVeroneze.NET.Commons.Data
 
         ValueTask<TEntity> FindAsync(TId simpleId);
 
-        Task<TEntity> FindAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>;
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
 
-        Task<List<TEntity>> FilterAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>;
+        Task<List<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> expression);
 
-        Task<List<TEntity>> FilterAsync<TFilter>(Pagination pagination, TFilter filter)
-            where TFilter : BaseFilter<TEntity>;
+        Task<List<TEntity>> FilterAsync(Pagination pagination, Expression<Func<TEntity, bool>> expression);
 
-        Task<Pageable<TEntity>> FilterPaginateAsync<TFilter>(Pagination pagination, TFilter filter)
-            where TFilter : BaseFilter<TEntity>;
+        Task<Pageable<TEntity>> FilterPaginateAsync(Pagination pagination, Expression<Func<TEntity, bool>> expression);
 
-        Task<int> CountAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>;
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> expression);
     }
 }
