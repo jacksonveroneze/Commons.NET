@@ -8,7 +8,7 @@ using MongoDB.Driver;
 namespace JacksonVeroneze.NET.Commons.Data.Document
 {
     public abstract class Repository<TEntity, TId> : IDocumentRepository<TEntity, TId>, IDisposable
-        where TEntity : EntityRoot where TId : EntityId
+        where TEntity : Entity, IAggregateRoot where TId : EntityId
     {
         protected readonly IMongoContext Context;
 

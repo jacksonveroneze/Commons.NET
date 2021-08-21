@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace JacksonVeroneze.NET.Commons.Data.Relational
 {
     public abstract class Repository<TEntity, TId> : IRelationalRepository<TEntity, TId>, IDisposable
-        where TEntity : EntityRoot where TId : EntityId
+        where TEntity : Entity, IAggregateRoot where TId : EntityId
     {
         protected readonly DbContext Context;
 

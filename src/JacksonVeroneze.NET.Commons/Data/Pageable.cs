@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace JacksonVeroneze.NET.Commons.Data
 {
-    public class Pageable<T> where T : class
+    public class Pageable<T>
     {
         public int? Total { get; set; }
 
