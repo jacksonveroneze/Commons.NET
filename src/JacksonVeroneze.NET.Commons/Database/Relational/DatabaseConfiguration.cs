@@ -2,7 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace JacksonVeroneze.NET.Commons.Database
+namespace JacksonVeroneze.NET.Commons.Database.Relational
 {
     public static class DatabaseConfiguration
     {

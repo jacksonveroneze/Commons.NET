@@ -20,9 +20,12 @@ namespace JacksonVeroneze.NET.Commons.Data
 
         Task<List<TEntity>> FilterAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>;
 
+        Task<List<TEntity>> FilterAsync<TFilter>(Pagination pagination, TFilter filter)
+            where TFilter : BaseFilter<TEntity>;
+
         Task<Pageable<TEntity>> FilterPaginateAsync<TFilter>(Pagination pagination, TFilter filter)
             where TFilter : BaseFilter<TEntity>;
 
-        Task<List<TEntity>> FilterAsync<TFilter>(Pagination pagination, TFilter filter) where TFilter : BaseFilter<TEntity>;
+        Task<int> CountAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>;
     }
 }

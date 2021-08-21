@@ -1,4 +1,4 @@
-namespace JacksonVeroneze.NET.Commons.Database
+namespace JacksonVeroneze.NET.Commons.Database.Relational
 {
     public class DatabaseOptions
     {

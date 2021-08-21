@@ -5,35 +5,36 @@ using System.Threading.Tasks;
 using JacksonVeroneze.NET.Commons.DomainObjects;
 using Microsoft.EntityFrameworkCore;
 
-namespace JacksonVeroneze.NET.Commons.Data
+namespace JacksonVeroneze.NET.Commons.Data.Relational
 {
-    public class Repository<TEntity, TId> : IRepository<TEntity, TId>, IDisposable
+    public abstract class Repository<TEntity, TId> : IRelationalRepository<TEntity, TId>, IDisposable
         where TEntity : EntityRoot where TId : EntityId
     {
-        private readonly DbSet<TEntity> _dbSet;
-
         protected readonly DbContext Context;
+
+        protected readonly DbSet<TEntity> DbSet;
 
         public IUnitOfWork UnitOfWork { get; set; }
 
-        protected Repository(DbContext context, IUnitOfWork unitOfWork)
+        protected Repository(DbContext context, IRelationalUnitOfWork unitOfWork)
         {
-            _dbSet = context.Set<TEntity>();
             Context = context;
             UnitOfWork = unitOfWork;
+
+            DbSet = context.Set<TEntity>();
         }
 
         public async Task AddAsync(TEntity entity)
-            => await _dbSet.AddAsync(entity);
+            => await DbSet.AddAsync(entity);
 
         public void Update(TEntity entity)
-            => _dbSet.Update(entity);
+            => DbSet.Update(entity);
 
         public void Remove(TEntity entity)
-            => _dbSet.Remove(entity);
+            => DbSet.Remove(entity);
 
         public ValueTask<TEntity> FindAsync(TId simpleId)
-            => _dbSet.FindAsync(simpleId.Id);
+            => DbSet.FindAsync(simpleId.Id);
 
         public Task<TEntity> FindAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>
             => BuidQueryable(new Pagination(), filter)
@@ -48,12 +49,6 @@ namespace JacksonVeroneze.NET.Commons.Data
             => BuidQueryable(pagination, filter)
                 .ToListAsync();
 
-        protected Task<int> CountAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>
-            => _dbSet
-                .AsNoTracking()
-                .Where(filter.ToQuery())
-                .CountAsync();
-
         public async Task<Pageable<TEntity>> FilterPaginateAsync<TFilter>(Pagination pagination, TFilter filter)
             where TFilter : BaseFilter<TEntity>
         {
@@ -64,10 +59,16 @@ namespace JacksonVeroneze.NET.Commons.Data
             return FactoryPageable(data, total, pagination.Skip ??= 0, pagination.Take ??= 30);
         }
 
+        public Task<int> CountAsync<TFilter>(TFilter filter) where TFilter : BaseFilter<TEntity>
+            => DbSet
+                .AsNoTracking()
+                .Where(filter.ToQuery())
+                .CountAsync();
+
         private IQueryable<TEntity> BuidQueryable<TFilter>(Pagination pagination, TFilter filter)
             where TFilter : BaseFilter<TEntity>
         {
-            return _dbSet
+            return DbSet
                 .Where(filter.ToQuery())
                 .OrderByDescending(x => x.CreatedAt)
                 .ConfigureSkipTakeFromPagination(pagination);
@@ -88,7 +89,6 @@ namespace JacksonVeroneze.NET.Commons.Data
         public void Dispose()
         {
             Context.Dispose();
-            //UnitOfWork.Dispose();
             GC.SuppressFinalize(this);
         }
     }

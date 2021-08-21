@@ -7,7 +7,7 @@ using JacksonVeroneze.NET.Commons.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace JacksonVeroneze.NET.Commons.Data
+namespace JacksonVeroneze.NET.Commons.Data.Relational
 {
     public static class MediatorExtension
     {

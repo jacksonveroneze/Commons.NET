@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace JacksonVeroneze.NET.Commons.Data
+namespace JacksonVeroneze.NET.Commons.Data.Relational
 {
     public static class QueryableExtension
     {
