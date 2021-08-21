@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace JacksonVeroneze.NET.Commons.Data.Document
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IDocumentUnitOfWork
     {
         private readonly IMongoContext _context;
 
