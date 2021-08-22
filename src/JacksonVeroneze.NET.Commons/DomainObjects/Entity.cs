@@ -10,7 +10,7 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
 
         public DateTime? DeletedAt { get; private set; }
 
-        public int Version { get; } = 1;
+        public int Version { get; private set; } = 1;
 
         public Guid TenantId { get; private set; }
 

@@ -42,16 +42,16 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
 
         public async Task<int> SaveChanges()
         {
-            using (Session = await MongoClient.StartSessionAsync())
-            {
-                Session.StartTransaction();
+            //using (Session = await MongoClient.StartSessionAsync())
+            //{
+            //    Session.StartTransaction();
 
                 var commandTasks = _commands.Select(c => c());
 
                 await Task.WhenAll(commandTasks);
 
-                await Session.CommitTransactionAsync();
-            }
+             //   await Session.CommitTransactionAsync();
+           // }
 
             return _commands.Count;
         }
