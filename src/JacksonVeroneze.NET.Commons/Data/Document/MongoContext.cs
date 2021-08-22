@@ -34,9 +34,12 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
             ConventionPack pack = new ConventionPack
             {
                 new IgnoreExtraElementsConvention(true),
-                new IgnoreIfDefaultConvention(true)
+                new IgnoreIfDefaultConvention(true),
             };
 
+            MongoDefaults.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard;
+
+            
             ConventionRegistry.Register("Conventions", pack, t => true);
         }
 
