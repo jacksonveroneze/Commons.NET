@@ -35,14 +35,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
             => Context.AddCommand(() => DbSet.DeleteOneAsync(x => x.Id == entity.Id));
 
         public async ValueTask<TEntity> FindAsync(TId simpleId)
-        {
-            var result = (await DbSet.FindAsync(Builders<TEntity>.Filter.Eq(x => x.Id, simpleId.Id))).FirstOrDefault();
-
-            if (result != null)
-                return result;
-            
-            return (await DbSet.FindAsync(Builders<TEntity>.Filter.Eq("_id", simpleId.Id))).FirstOrDefault();
-        }
+            => (await DbSet.FindAsync(Builders<TEntity>.Filter.Eq(x => x.Id, simpleId.Id))).FirstOrDefault();
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
             => (await DbSet.FindAsync(expression)).FirstOrDefault();

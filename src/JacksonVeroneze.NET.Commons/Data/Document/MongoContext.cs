@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
@@ -37,24 +36,14 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
                 new IgnoreIfDefaultConvention(true),
             };
 
-            MongoDefaults.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard;
-
-            
             ConventionRegistry.Register("Conventions", pack, t => true);
         }
 
         public async Task<int> SaveChanges()
         {
-            //using (Session = await MongoClient.StartSessionAsync())
-            //{
-            //    Session.StartTransaction();
+            IEnumerable<Task> commandTasks = _commands.Select(c => c());
 
-                var commandTasks = _commands.Select(c => c());
-
-                await Task.WhenAll(commandTasks);
-
-             //   await Session.CommitTransactionAsync();
-           // }
+            await Task.WhenAll(commandTasks);
 
             return _commands.Count;
         }
@@ -63,12 +52,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
             => Database.GetCollection<T>(name);
 
         public void Dispose()
-        {
-            while (Session != null && Session.IsInTransaction)
-                Thread.Sleep(TimeSpan.FromMilliseconds(100));
-
-            GC.SuppressFinalize(this);
-        }
+            => GC.SuppressFinalize(this);
 
         public Task AddCommand(Func<Task> func)
         {
