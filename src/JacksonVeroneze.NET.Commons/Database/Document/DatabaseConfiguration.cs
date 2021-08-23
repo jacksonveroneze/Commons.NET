@@ -1,6 +1,7 @@
 using System;
 using JacksonVeroneze.NET.Commons.Data.Document;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Events;
@@ -23,17 +24,17 @@ namespace JacksonVeroneze.NET.Commons.Database.Document
             {
                 cb.Subscribe<CommandStartedEvent>(e =>
                 {
-                    optionsConfig.Logger.Information($"{e.CommandName} - {e.Command.ToJson()}");
+                    optionsConfig.Logger.LogInformation($"{e.CommandName} - {e.Command.ToJson()}");
                 });
 
                 cb.Subscribe<CommandSucceededEvent>(e =>
                 {
-                    optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}");
+                    optionsConfig.Logger.LogInformation($"{e.CommandName} - {e.ToJson()}");
                 });
                 
                 cb.Subscribe<CommandFailedEvent>(e =>
                 {
-                    optionsConfig.Logger.Error($"{e.CommandName} - {e.ToJson()}");
+                    optionsConfig.Logger.LogError($"{e.CommandName} - {e.ToJson()}");
                 });
             };
 

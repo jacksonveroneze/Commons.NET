@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 namespace JacksonVeroneze.NET.Commons.Database.Document
 {
     public class DatabaseOptions
@@ -6,6 +8,6 @@ namespace JacksonVeroneze.NET.Commons.Database.Document
 
         public string DatabaseName { get; set; }
         
-        public Serilog.Core.Logger Logger { get; set; }
+        public ILogger Logger { get; set; }
     }
 }
