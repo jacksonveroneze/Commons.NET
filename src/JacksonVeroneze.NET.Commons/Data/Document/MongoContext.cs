@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 
@@ -30,6 +31,8 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
 
         private void RegisterConventions()
         {
+            BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
+            
             ConventionPack pack = new ConventionPack
             {
                 new IgnoreExtraElementsConvention(true),
