@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace JacksonVeroneze.NET.Commons.Database.Document
 {
