@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,33 +37,39 @@ namespace JacksonVeroneze.NET.Commons.AspNet.Swagger
                     }
                 );
 
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                if (optionsConfig.UseAuthorization)
                 {
-                    Description = "Input the JWT like: Bearer {your token}",
-                    Name = "Authorization",
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                });
-
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
+                    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] { }
-                    }
-                });
+                        Description = "Input the JWT like: Bearer {your token}",
+                        Name = "Authorization",
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                    });
 
-                if (optionsConfig.IncludeXmlComments)
-                    options.IncludeXmlComments(optionsConfig.XmlCommentsPath);
+                    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] { }
+                        }
+                    });
+                }
+
+                string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                if (File.Exists(xmlFile))
+                    options.IncludeXmlComments(xmlPath);
             });
 
             return services;

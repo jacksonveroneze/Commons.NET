@@ -13,8 +13,8 @@ namespace JacksonVeroneze.NET.Commons.Data.Relational
     {
         public static async Task PublishEvents(this IBus bus, DbContext dbContext)
         {
-            IList<EntityEntry<EntityRoot>> domainEntities = dbContext.ChangeTracker
-                .Entries<EntityRoot>()
+            IList<EntityEntry<EntityAggregateRoot>> domainEntities = dbContext.ChangeTracker
+                .Entries<EntityAggregateRoot>()
                 .Where(x => x.Entity.Notifications != null && x.Entity.Notifications.Any())
                 .ToList();
 

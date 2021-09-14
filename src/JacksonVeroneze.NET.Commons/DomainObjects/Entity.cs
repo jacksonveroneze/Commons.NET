@@ -17,6 +17,15 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
         public Entity ShallowCopy()
             => (Entity)MemberwiseClone();
 
+        public void MarkAsUpdated()
+        {
+            UpdatedAt = DateTime.Now;
+            Version++;
+        }
+
+        public void MarkAsDeleted()
+            => DeletedAt = DateTime.Now;
+
         public override string ToString()
             => $"{GetType().Name}: Id: {Id}, CreatedAt: {CreatedAt}, " +
                $"UpdatedAt: {UpdatedAt}, DeletedAt: {DeletedAt}, Version: {Version}, TenantId: {TenantId}";

@@ -28,11 +28,20 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
             => Context.AddCommand(async () => await DbSet.InsertOneAsync(entity));
 
         public void Update(TEntity entity)
-            => Context.AddCommand(async () =>
+        {
+            entity.MarkAsUpdated();
+
+            Context.AddCommand(async () =>
                 await DbSet.ReplaceOneAsync(x => x.Id == entity.Id, entity));
+        }
 
         public void Remove(TEntity entity)
-            => Context.AddCommand(() => DbSet.DeleteOneAsync(x => x.Id == entity.Id));
+        {
+            entity.MarkAsDeleted();
+
+            Context.AddCommand(async () =>
+                await DbSet.ReplaceOneAsync(x => x.Id == entity.Id, entity));
+        }
 
         public async ValueTask<TEntity> FindAsync(TId simpleId)
             => (await DbSet.FindAsync(Builders<TEntity>.Filter.Eq(x => x.Id, simpleId.Id))).FirstOrDefault();

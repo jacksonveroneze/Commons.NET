@@ -12,8 +12,6 @@ namespace JacksonVeroneze.NET.Commons.AspNet.Swagger
 
         public string ContactEmail { get; set; }
         
-        public bool IncludeXmlComments { get; set; }
-        
-        public string XmlCommentsPath { get; set; }
+        public bool UseAuthorization { get; set; }
     }
 }

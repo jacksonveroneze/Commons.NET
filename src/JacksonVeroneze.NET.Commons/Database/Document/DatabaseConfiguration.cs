@@ -19,23 +19,18 @@ namespace JacksonVeroneze.NET.Commons.Database.Document
             MongoUrl mongoConnectionUrl = new MongoUrl(optionsConfig.ConnectionString);
             MongoClientSettings mongoClientSettings = MongoClientSettings.FromUrl(mongoConnectionUrl);
 
-            mongoClientSettings.ClusterConfigurator = cb =>
-            {
-                cb.Subscribe<CommandStartedEvent>(e =>
+            if (optionsConfig.EnableSensitiveDataLogging)
+                mongoClientSettings.ClusterConfigurator = cb =>
                 {
-                    optionsConfig.Logger.Information($"{e.CommandName} - {e.Command.ToJson()}");
-                });
+                    cb.Subscribe<CommandStartedEvent>(e =>
+                        optionsConfig.Logger.Information($"{e.CommandName} - {e.Command.ToJson()}"));
 
-                cb.Subscribe<CommandSucceededEvent>(e =>
-                {
-                    //optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}");
-                });
-                
-                cb.Subscribe<CommandFailedEvent>(e =>
-                {
-                    optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}");
-                });
-            };
+                    cb.Subscribe<CommandSucceededEvent>(e =>
+                        optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}"));
+
+                    cb.Subscribe<CommandFailedEvent>(e =>
+                        optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}"));
+                };
 
             services.AddScoped<IMongoContext>(x =>
                 new MongoContext(new MongoClient(mongoClientSettings), optionsConfig.DatabaseName));

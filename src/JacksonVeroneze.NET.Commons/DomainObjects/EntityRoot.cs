@@ -3,7 +3,7 @@ using JacksonVeroneze.NET.Commons.Messaging;
 
 namespace JacksonVeroneze.NET.Commons.DomainObjects
 {
-    public abstract class EntityRoot : Entity
+    public abstract class EntityAggregateRoot : Entity
     {
         private readonly List<Event> _notifications = new();
 
