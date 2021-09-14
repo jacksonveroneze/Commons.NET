@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FC66AB4E-9B6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacksonVeroneze.NET.Commons", "src\JacksonVeroneze.NET.Commons\JacksonVeroneze.NET.Commons.csproj", "{3FE5AE5C-77AF-41E5-BA65-DC09CADCE4EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacksonVeroneze.NET.Commons.AspNet", "src\JacksonVeroneze.NET.Commons.AspNet\JacksonVeroneze.NET.Commons.AspNet.csproj", "{627480C0-39D0-41A4-9641-0DC4E0529CCD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,21 +32,8 @@ Global
 		{3FE5AE5C-77AF-41E5-BA65-DC09CADCE4EB}.Release|x64.Build.0 = Release|Any CPU
 		{3FE5AE5C-77AF-41E5-BA65-DC09CADCE4EB}.Release|x86.ActiveCfg = Release|Any CPU
 		{3FE5AE5C-77AF-41E5-BA65-DC09CADCE4EB}.Release|x86.Build.0 = Release|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Debug|x64.Build.0 = Debug|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Debug|x86.Build.0 = Debug|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Release|x64.ActiveCfg = Release|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Release|x64.Build.0 = Release|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Release|x86.ActiveCfg = Release|Any CPU
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3FE5AE5C-77AF-41E5-BA65-DC09CADCE4EB} = {FC66AB4E-9B6C-4990-AA67-E84F383CD7BD}
-		{627480C0-39D0-41A4-9641-0DC4E0529CCD} = {FC66AB4E-9B6C-4990-AA67-E84F383CD7BD}
 	EndGlobalSection
 EndGlobal
