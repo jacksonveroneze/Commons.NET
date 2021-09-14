@@ -1,7 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+    <PackageId>JacksonVeroneze.NET.Commons.AspNet</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Jackson Veroneze</Authors>
+    <Company>jacksonveroneze</Company>
+    <PackageDescription>JacksonVeroneze.NET.Commons.AspNet</PackageDescription>
+    <RepositoryUrl>https://github.com/jacksonveroneze/Commons.NET</RepositoryUrl>
+    <Title>Commons.NET</Title>
+    <Description>Pacote utilizado para commons.</Description>
+    <PackageProjectUrl>https://github.com/jacksonveroneze/Commons.NET</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/jacksonveroneze/Commons.NET/blob/main/LICENSE</PackageLicenseUrl>
     <TargetFramework>net5.0</TargetFramework>
+    <Copyright>Jackson Veroneze</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
