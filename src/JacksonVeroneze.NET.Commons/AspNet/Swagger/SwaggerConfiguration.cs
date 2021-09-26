@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,27 +16,35 @@ namespace JacksonVeroneze.NET.Commons.AspNet.Swagger
 
             action?.Invoke(optionsConfig);
 
+            ServiceProvider provider = services.BuildServiceProvider();
+
+            IApiVersionDescriptionProvider descriptionProvider =
+                provider.GetRequiredService<IApiVersionDescriptionProvider>();
+
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc(optionsConfig.Version, new OpenApiInfo
-                    {
-                        Title = optionsConfig.Title,
-                        Version = optionsConfig.Version,
-                        Description = optionsConfig.Description,
-                        Contact = new OpenApiContact
+                foreach (ApiVersionDescription description in descriptionProvider.ApiVersionDescriptions)
+                {
+                    options.SwaggerDoc(description.GroupName, new OpenApiInfo
                         {
-                            Name = optionsConfig.ContactName,
-                            Email = optionsConfig.ContactEmail
-                        },
-                        License = new OpenApiLicense
-                        {
-                            Name = "MIT",
-                            Url = new Uri("https://opensource.org/licenses/MIT")
+                            Title = optionsConfig.Title,
+                            Version = description.ApiVersion.ToString(),
+                            Description = optionsConfig.Description,
+                            Contact = new OpenApiContact
+                            {
+                                Name = optionsConfig.ContactName,
+                                Email = optionsConfig.ContactEmail
+                            },
+                            License = new OpenApiLicense
+                            {
+                                Name = "MIT",
+                                Url = new Uri("https://opensource.org/licenses/MIT")
+                            }
                         }
-                    }
-                );
+                    );
+                }
 
-                if (optionsConfig.UseAuthorization)
+                if (optionsConfig.UseAuthentication)
                 {
                     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {
@@ -65,11 +72,15 @@ namespace JacksonVeroneze.NET.Commons.AspNet.Swagger
                     });
                 }
 
-                string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                if (!string.IsNullOrEmpty(optionsConfig.AssemblyName))
+                {
+                    string xmlFile = $"{optionsConfig.AssemblyName}.xml";
 
-                if (File.Exists(xmlFile))
-                    options.IncludeXmlComments(xmlPath);
+                    string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                    if (File.Exists(xmlFile))
+                        options.IncludeXmlComments(xmlPath);
+                }
             });
 
             return services;
@@ -83,9 +94,9 @@ namespace JacksonVeroneze.NET.Commons.AspNet.Swagger
             {
                 options.RoutePrefix = String.Empty;
 
-                foreach (var description in provider.ApiVersionDescriptions)
-                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                        description.GroupName.ToUpperInvariant());
+                foreach (ApiVersionDescription versionDescription in provider.ApiVersionDescriptions)
+                    options.SwaggerEndpoint($"/swagger/{versionDescription.GroupName}/swagger.json",
+                        versionDescription.GroupName.ToUpperInvariant());
             });
 
             return app;
