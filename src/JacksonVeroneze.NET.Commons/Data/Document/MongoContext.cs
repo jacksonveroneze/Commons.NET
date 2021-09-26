@@ -47,6 +47,8 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
             IEnumerable<Task> commandTasks = _commands.Select(c => c());
 
             await Task.WhenAll(commandTasks);
+            
+            _commands.Clear();
 
             return _commands.Count;
         }
