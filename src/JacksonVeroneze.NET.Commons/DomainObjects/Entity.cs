@@ -4,7 +4,7 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
 {
     public abstract class Entity : EntityId
     {
-        public DateTime CreatedAt { get; } = DateTime.Now;
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
         public DateTime? UpdatedAt { get; private set; }
 
@@ -25,6 +25,16 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
 
         public void MarkAsDeleted()
             => DeletedAt = DateTime.Now;
+
+        public void PopulatePrivateProperties(DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, int version,
+            Guid tenantId)
+        {
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+            DeletedAt = deletedAt;
+            Version = version;
+            TenantId = tenantId;
+        }
 
         public override string ToString()
             => $"{GetType().Name}: Id: {Id}, CreatedAt: {CreatedAt}, " +
