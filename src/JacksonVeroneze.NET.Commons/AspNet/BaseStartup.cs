@@ -12,7 +12,7 @@ namespace JacksonVeroneze.NET.Commons.AspNet
 {
     public abstract class BaseStartup
     {
-        protected IConfiguration Configuration { get; }
+        protected IConfiguration Configuration { get; set; }
 
         protected IHostEnvironment HostEnvironment { get; }
 
