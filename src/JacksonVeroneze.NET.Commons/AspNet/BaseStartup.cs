@@ -16,20 +16,19 @@ namespace JacksonVeroneze.NET.Commons.AspNet
 
         protected IHostEnvironment HostEnvironment { get; }
 
+        protected IConfigurationBuilder ConfigurationBuilder { get; } = new ConfigurationBuilder();
+
         protected BaseStartup(IHostEnvironment hostEnvironment)
         {
-            IConfigurationBuilder builder = new ConfigurationBuilder()
-                .SetBasePath(hostEnvironment.ContentRootPath);
+            HostEnvironment = hostEnvironment;
+
+            ConfigurationBuilder.SetBasePath(hostEnvironment.ContentRootPath);
 
             if (!hostEnvironment.IsProduction())
-                builder.AddJsonFile("appsettings.json", true, true)
+                ConfigurationBuilder.AddJsonFile("appsettings.json", true, true)
                     .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true);
 
-            builder.AddEnvironmentVariables("APP_CONFIG_");
-
-            Configuration = builder.Build();
-
-            HostEnvironment = hostEnvironment;
+            ConfigurationBuilder.AddEnvironmentVariables("APP_CONFIG_");
         }
 
         public virtual void ConfigureServices(IServiceCollection services)
