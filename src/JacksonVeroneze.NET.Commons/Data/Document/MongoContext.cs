@@ -56,7 +56,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
         public IMongoCollection<T> GetCollection<T>(string name)
             => Database.GetCollection<T>(name);
 
-        public MongoClient GetClient()
+        public MongoClient Client
             => MongoClient;
 
         public void Dispose()
