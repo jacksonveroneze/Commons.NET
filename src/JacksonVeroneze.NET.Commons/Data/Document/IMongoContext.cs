@@ -11,5 +11,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
         Task<int> SaveChanges();
 
         IMongoCollection<T> GetCollection<T>(string name);
+
+        MongoClient GetClient();
     }
 }

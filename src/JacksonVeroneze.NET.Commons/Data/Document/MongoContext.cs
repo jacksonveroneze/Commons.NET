@@ -32,7 +32,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
         private void RegisterConventions()
         {
             BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
-            
+
             ConventionPack pack = new ConventionPack
             {
                 new IgnoreExtraElementsConvention(true),
@@ -47,7 +47,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
             IEnumerable<Task> commandTasks = _commands.Select(c => c());
 
             await Task.WhenAll(commandTasks);
-            
+
             _commands.Clear();
 
             return _commands.Count;
@@ -56,13 +56,16 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
         public IMongoCollection<T> GetCollection<T>(string name)
             => Database.GetCollection<T>(name);
 
+        public MongoClient GetClient()
+            => MongoClient;
+
         public void Dispose()
             => GC.SuppressFinalize(this);
 
         public Task AddCommand(Func<Task> func)
         {
             _commands.Add(func);
-
+            
             return Task.CompletedTask;
         }
     }
