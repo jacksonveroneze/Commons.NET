@@ -48,9 +48,11 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
 
             await Task.WhenAll(commandTasks);
 
+            int count = _commands.Count;
+            
             _commands.Clear();
 
-            return _commands.Count;
+            return count;
         }
 
         public IMongoCollection<T> GetCollection<T>(string name)
