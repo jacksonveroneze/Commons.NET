@@ -16,6 +16,9 @@ namespace JacksonVeroneze.NET.Commons.AspNet
 
         protected IConfiguration Configuration { get; set; }
 
+        protected BaseStartup(IHostEnvironment hostEnvironment)
+            => HostEnvironment = hostEnvironment;
+
         protected BaseStartup(IHostEnvironment hostEnvironment, IConfiguration configuration)
         {
             HostEnvironment = hostEnvironment;
