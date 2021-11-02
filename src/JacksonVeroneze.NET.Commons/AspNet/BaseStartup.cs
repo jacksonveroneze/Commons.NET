@@ -12,23 +12,14 @@ namespace JacksonVeroneze.NET.Commons.AspNet
 {
     public abstract class BaseStartup
     {
+        protected IHostEnvironment HostEnvironment { get; set; }
+
         protected IConfiguration Configuration { get; set; }
 
-        protected IHostEnvironment HostEnvironment { get; }
-
-        protected IConfigurationBuilder ConfigurationBuilder { get; } = new ConfigurationBuilder();
-
-        protected BaseStartup(IHostEnvironment hostEnvironment)
+        protected BaseStartup(IHostEnvironment hostEnvironment, IConfiguration configuration)
         {
             HostEnvironment = hostEnvironment;
-
-            ConfigurationBuilder.SetBasePath(hostEnvironment.ContentRootPath);
-
-            if (!hostEnvironment.IsProduction())
-                ConfigurationBuilder.AddJsonFile("appsettings.json", true, true)
-                    .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true);
-
-            ConfigurationBuilder.AddEnvironmentVariables("APP_CONFIG_");
+            Configuration = configuration;
         }
 
         public virtual void ConfigureServices(IServiceCollection services)
