@@ -29,11 +29,6 @@ namespace JacksonVeroneze.NET.Commons.Logger
                     "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj} {Properties:j}{NewLine}{Exception}{NewLine}",
                     theme: AnsiConsoleTheme.Literate);
 
-            if (optionsConfig.EnableApplicationInsights is true &&
-                string.IsNullOrEmpty(configuration["ApplicationInsights_InstrumentationKey"]) is false)
-                loggerConfiguration.WriteTo.ApplicationInsights(configuration["ApplicationInsights_InstrumentationKey"],
-                    TelemetryConverter.Events);
-
             return loggerConfiguration.CreateLogger();
         }
 

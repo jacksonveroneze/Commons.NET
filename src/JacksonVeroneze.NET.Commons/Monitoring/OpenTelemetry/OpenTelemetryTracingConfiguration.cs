@@ -22,7 +22,7 @@ namespace JacksonVeroneze.NET.Commons.Monitoring.OpenTelemetry
                         .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(optionsConfig.ApplicationName))
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
-                        .AddSqlClientInstrumentation(options => { options.SetTextCommandContent = true; });
+                        .AddSqlClientInstrumentation();
 
                     if (optionsConfig.UseJaeger)
                         builder.AddJaegerExporter(options =>
@@ -33,6 +33,12 @@ namespace JacksonVeroneze.NET.Commons.Monitoring.OpenTelemetry
 
                     if (optionsConfig.ShowConsoleExporter)
                         builder.AddConsoleExporter();
+
+                    if (optionsConfig.UseGrafanaAgent)
+                        builder.AddOtlpExporter(opt =>
+                        {
+                            opt.Endpoint = new Uri(optionsConfig.GrafanaAgentHost);
+                        });
                 });
         }
     }

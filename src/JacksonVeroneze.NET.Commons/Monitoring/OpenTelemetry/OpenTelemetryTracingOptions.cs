@@ -11,5 +11,9 @@ namespace JacksonVeroneze.NET.Commons.Monitoring.OpenTelemetry
         public string JaegerAgentHost { get; set; }
 
         public int JaegerAgentPort { get; set; }
+        
+        public bool UseGrafanaAgent { get; set; }
+        
+        public string GrafanaAgentHost { get; set; }
     }
 }
