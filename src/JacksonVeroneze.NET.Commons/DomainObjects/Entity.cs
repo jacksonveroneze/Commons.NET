@@ -26,16 +26,6 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
         public void MarkAsDeleted()
             => DeletedAt = DateTime.Now;
 
-        public void PopulatePrivateProperties(DateTime createdAt, DateTime? updatedAt, DateTime? deletedAt, int version,
-            Guid tenantId)
-        {
-            CreatedAt = createdAt;
-            UpdatedAt = updatedAt;
-            DeletedAt = deletedAt;
-            Version = version;
-            TenantId = tenantId;
-        }
-
         public override string ToString()
             => $"{GetType().Name}: Id: {Id}, CreatedAt: {CreatedAt}, " +
                $"UpdatedAt: {UpdatedAt}, DeletedAt: {DeletedAt}, Version: {Version}, TenantId: {TenantId}";
