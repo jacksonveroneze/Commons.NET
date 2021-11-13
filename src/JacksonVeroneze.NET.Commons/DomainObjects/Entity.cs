@@ -4,11 +4,11 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
 {
     public abstract class Entity : EntityId
     {
-        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.Now;
 
-        public DateTime? UpdatedAt { get; private set; }
+        public DateTimeOffset? UpdatedAt { get; private set; }
 
-        public DateTime? DeletedAt { get; private set; }
+        public DateTimeOffset? DeletedAt { get; private set; }
 
         public int Version { get; private set; } = 1;
 
