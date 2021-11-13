@@ -19,12 +19,12 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
 
         public void MarkAsUpdated()
         {
-            UpdatedAt = DateTime.Now;
+            UpdatedAt = DateTimeOffset.Now;
             Version++;
         }
 
         public void MarkAsDeleted()
-            => DeletedAt = DateTime.Now;
+            => DeletedAt = DateTimeOffset.Now;
 
         public override string ToString()
             => $"{GetType().Name}: Id: {Id}, CreatedAt: {CreatedAt}, " +
