@@ -21,7 +21,7 @@ namespace JacksonVeroneze.NET.Commons.Monitoring.OpenTelemetry
                         .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(optionsConfig.ApplicationName))
                         .AddAspNetCoreInstrumentation()
                         .AddHttpClientInstrumentation()
-                        .AddSqlClientInstrumentation();
+                        .AddSqlClientInstrumentation(options => options.SetDbStatementForText = false);
 
                     if (optionsConfig.UseJaeger)
                         builder.AddJaegerExporter(options =>
