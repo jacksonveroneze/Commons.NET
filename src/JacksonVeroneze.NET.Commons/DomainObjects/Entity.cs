@@ -4,7 +4,7 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
 {
     public abstract class Entity : EntityId
     {
-        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.UtcNow;
 
         public DateTimeOffset? UpdatedAt { get; private set; }
 
