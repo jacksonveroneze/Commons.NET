@@ -1,3 +1,4 @@
+using CorrelationId.HttpClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -23,6 +24,7 @@ namespace JacksonVeroneze.NET.Commons.HttpClient
                         httpClient.BaseAddress = httpClientOptions.BaseAddress;
                         httpClient.Timeout = httpClientOptions.Timeout;
                     })
+                .AddCorrelationIdForwarding()
                 .AddHttpMessageHandler<AuthorizationHeaderHandler>()
                 .AddPolicyHandlerFromRegistry(PolicyName.HttpRetry)
                 .AddPolicyHandlerFromRegistry(PolicyName.HttpCircuitBreaker)

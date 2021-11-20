@@ -16,6 +16,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="CorrelationId" Version="3.0.1" />
         <PackageReference Include="FluentValidation" Version="10.3.4" />
         <PackageReference Include="MediatR" Version="9.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
@@ -25,7 +26,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.0" />
 
-        <PackageReference Include="EFCore.NamingConventions" Version="6.0.0-rc.1" />
+        <PackageReference Include="EFCore.NamingConventions" Version="6.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
         <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
@@ -35,7 +36,7 @@
         <PackageReference Include="Serilog.Enrichers.Demystify" Version="1.0.0-dev-00019" />
         <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
 
-        <PackageReference Include="ServiceStack.Core" Version="5.13.0" />
+        <PackageReference Include="ServiceStack.Core" Version="5.13.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
