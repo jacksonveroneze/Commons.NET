@@ -114,6 +114,12 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
                 throw ExceptionsFactory.FactoryDomainException(mensagem);
         }
 
+        public static void ValidarSeMaiorQue(DateTimeOffset valor, DateTimeOffset minimo, string mensagem)
+        {
+            if (valor > minimo)
+                throw ExceptionsFactory.FactoryDomainException(mensagem);
+        }
+
         public static void ValidarSeFalso(bool boolvalor, string mensagem)
         {
             if (!boolvalor)
