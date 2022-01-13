@@ -4,11 +4,11 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
 {
     public abstract class Entity : EntityId
     {
-        public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.UtcNow;
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
-        public DateTimeOffset? UpdatedAt { get; private set; }
+        public DateTime? UpdatedAt { get; private set; }
 
-        public DateTimeOffset? DeletedAt { get; private set; }
+        public DateTime? DeletedAt { get; private set; }
 
         public int Version { get; private set; } = 1;
 
@@ -19,12 +19,12 @@ namespace JacksonVeroneze.NET.Commons.DomainObjects
 
         public void MarkAsUpdated()
         {
-            UpdatedAt = DateTimeOffset.Now;
+            UpdatedAt = DateTime.Now;
             Version++;
         }
 
         public void MarkAsDeleted()
-            => DeletedAt = DateTimeOffset.Now;
+            => DeletedAt = DateTime.Now;
 
         public override string ToString()
             => $"{GetType().Name}: Id: {Id}, CreatedAt: {CreatedAt}, " +
