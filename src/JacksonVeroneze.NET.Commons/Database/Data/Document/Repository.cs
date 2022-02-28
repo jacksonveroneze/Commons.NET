@@ -57,7 +57,8 @@ namespace JacksonVeroneze.NET.Commons.Database.Data.Document
             => (await BuidQueryable(pagination, expression)).ToList();
 
         public async Task<PageResult<TEntity>> FilterPaginateAsync(Pagination.Pagination pagination,
-            Expression<Func<TEntity, bool>> expression)
+            Expression<Func<TEntity, bool>> expression,
+            Expression<Func<TEntity, bool>> order)
 
         {
             long total = await CountAsync(expression);

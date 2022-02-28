@@ -94,8 +94,10 @@ namespace JacksonVeroneze.NET.Commons.Database.Data.Relational
                 .ToListAsync();
         }
 
-        public async Task<PageResult<TEntity>> FilterPaginateAsync(Pagination.Pagination pagination,
-            Expression<Func<TEntity, bool>> expression)
+        public async Task<PageResult<TEntity>> FilterPaginateAsync(
+            Pagination.Pagination pagination,
+            Expression<Func<TEntity, bool>> expression,
+            Expression<Func<TEntity, bool>> order)
 
         {
             Logger.LogInformation("{class} - {method}",
@@ -103,7 +105,10 @@ namespace JacksonVeroneze.NET.Commons.Database.Data.Relational
 
             int total = await CountAsync(expression);
 
-            List<TEntity> data = await BuidQueryable(pagination, expression)
+            List<TEntity> data = await DbSet
+                .Where(expression)
+                .OrderByDescending(order)
+                .ConfigureSkipTake(pagination)
                 .ToListAsync();
 
             return FactoryPageable(data, total, pagination.Page,

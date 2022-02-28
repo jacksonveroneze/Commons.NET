@@ -29,7 +29,8 @@ namespace JacksonVeroneze.NET.Commons.Database.Data
             Expression<Func<TEntity, bool>> expression);
 
         Task<PageResult<TEntity>> FilterPaginateAsync(Pagination.Pagination pagination, 
-            Expression<Func<TEntity, bool>> expression);
+            Expression<Func<TEntity, bool>> expression,
+            Expression<Func<TEntity, bool>> order);
 
         Task<int> CountAsync(Expression<Func<TEntity, bool>> expression);
     }
