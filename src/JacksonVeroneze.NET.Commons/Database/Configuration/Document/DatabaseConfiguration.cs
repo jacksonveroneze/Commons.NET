@@ -1,11 +1,11 @@
 using System;
-using JacksonVeroneze.NET.Commons.Data.Document;
+using JacksonVeroneze.NET.Commons.Database.Data.Document;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Events;
 
-namespace JacksonVeroneze.NET.Commons.Database.Document
+namespace JacksonVeroneze.NET.Commons.Database.Configuration.Document
 {
     public static class DatabaseConfiguration
     {

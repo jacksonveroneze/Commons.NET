@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace JacksonVeroneze.NET.Commons.Data.Document
+namespace JacksonVeroneze.NET.Commons.Database.Data.Document
 {
     public class UnitOfWork : IDocumentUnitOfWork
     {

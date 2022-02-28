@@ -6,7 +6,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 
-namespace JacksonVeroneze.NET.Commons.Data.Document
+namespace JacksonVeroneze.NET.Commons.Database.Data.Document
 {
     public class MongoContext : IMongoContext
     {

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JacksonVeroneze.NET.Commons.DomainObjects;
+using JacksonVeroneze.NET.Commons.Pagination;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace JacksonVeroneze.NET.Commons.Data.Relational
+namespace JacksonVeroneze.NET.Commons.Database.Data.Relational
 {
     public abstract class Repository<TEntity, TId> :
         IRelationalRepository<TEntity, TId>
@@ -70,7 +71,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Relational
             Logger.LogInformation("{class} - {method}",
                 nameof(Repository<TEntity, TId>), nameof(FindAsync));
 
-            return BuidQueryable(new Pagination(), expression)
+            return BuidQueryable(new Pagination.Pagination(), expression)
                 .FirstOrDefaultAsync();
         }
 
@@ -79,11 +80,11 @@ namespace JacksonVeroneze.NET.Commons.Data.Relational
             Logger.LogInformation("{class} - {method}",
                 nameof(Repository<TEntity, TId>), nameof(FilterAsync));
 
-            return BuidQueryable(new Pagination(), expression)
+            return BuidQueryable(new Pagination.Pagination(), expression)
                 .ToListAsync();
         }
 
-        public Task<List<TEntity>> FilterAsync(Pagination pagination,
+        public Task<List<TEntity>> FilterAsync(Pagination.Pagination pagination,
             Expression<Func<TEntity, bool>> expression)
         {
             Logger.LogInformation("{class} - {method}",
@@ -93,7 +94,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Relational
                 .ToListAsync();
         }
 
-        public async Task<PageResult<TEntity>> FilterPaginateAsync(Pagination pagination,
+        public async Task<PageResult<TEntity>> FilterPaginateAsync(Pagination.Pagination pagination,
             Expression<Func<TEntity, bool>> expression)
 
         {
@@ -115,7 +116,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Relational
                 .Where(expression)
                 .CountAsync();
 
-        private IQueryable<TEntity> BuidQueryable(Pagination pagination,
+        private IQueryable<TEntity> BuidQueryable(Pagination.Pagination pagination,
             Expression<Func<TEntity, bool>> expression)
 
         {

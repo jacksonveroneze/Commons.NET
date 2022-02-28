@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace JacksonVeroneze.NET.Commons.Data
+namespace JacksonVeroneze.NET.Commons.Database.Data
 {
     public interface IUnitOfWork
     {

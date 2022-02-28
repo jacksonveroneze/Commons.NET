@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace JacksonVeroneze.NET.Commons.Database.Document
+namespace JacksonVeroneze.NET.Commons.Database.Configuration.Document
 {
     public class DatabaseOptions
     {

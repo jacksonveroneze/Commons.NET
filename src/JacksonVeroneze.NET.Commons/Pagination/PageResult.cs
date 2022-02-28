@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-namespace JacksonVeroneze.NET.Commons.Data
+namespace JacksonVeroneze.NET.Commons.Pagination
 {
     public class PageResult<T>
     {
-        public IList<T> Data { get; set; }
+        public ICollection<T> Data { get; set; }
 
         public int? TotalElements { get; set; }
         

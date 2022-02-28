@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 
-namespace JacksonVeroneze.NET.Commons.Data.Relational
+namespace JacksonVeroneze.NET.Commons.Database.Data.Relational
 {
     public static class QueryableExtension
     {
         public static IQueryable<TSource> ConfigureSkipTake<TSource>(
             this IQueryable<TSource> queryable,
-            Pagination pagination)
+            Pagination.Pagination pagination)
         {
             int skip = pagination.Page;
 

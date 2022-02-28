@@ -1,4 +1,4 @@
-namespace JacksonVeroneze.NET.Commons.Data.Document
+namespace JacksonVeroneze.NET.Commons.Database.Data.Document
 {
     public interface IDocumentUnitOfWork : IUnitOfWork
     {

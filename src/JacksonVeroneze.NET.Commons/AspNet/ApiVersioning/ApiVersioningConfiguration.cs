@@ -15,7 +15,8 @@ namespace JacksonVeroneze.NET.Commons.AspNet.ApiVersioning
 
             services.AddApiVersioning(p =>
             {
-                p.DefaultApiVersion = new ApiVersion(optionsConfig.MajorVersion, optionsConfig.MinorVersion);
+                p.DefaultApiVersion = new ApiVersion(optionsConfig.MajorVersion,
+                    optionsConfig.MinorVersion);
                 p.ReportApiVersions = true;
                 p.AssumeDefaultVersionWhenUnspecified = true;
             });

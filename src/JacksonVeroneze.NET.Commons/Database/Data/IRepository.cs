@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JacksonVeroneze.NET.Commons.DomainObjects;
+using JacksonVeroneze.NET.Commons.Pagination;
 
-namespace JacksonVeroneze.NET.Commons.Data
+namespace JacksonVeroneze.NET.Commons.Database.Data
 {
     public interface IRepository<TEntity, in TId> : 
         IDisposable where TEntity : 
@@ -24,10 +25,10 @@ namespace JacksonVeroneze.NET.Commons.Data
 
         Task<List<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> expression);
 
-        Task<List<TEntity>> FilterAsync(Pagination pagination, 
+        Task<List<TEntity>> FilterAsync(Pagination.Pagination pagination, 
             Expression<Func<TEntity, bool>> expression);
 
-        Task<PageResult<TEntity>> FilterPaginateAsync(Pagination pagination, 
+        Task<PageResult<TEntity>> FilterPaginateAsync(Pagination.Pagination pagination, 
             Expression<Func<TEntity, bool>> expression);
 
         Task<int> CountAsync(Expression<Func<TEntity, bool>> expression);

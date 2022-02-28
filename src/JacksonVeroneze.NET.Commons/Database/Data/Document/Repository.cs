@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JacksonVeroneze.NET.Commons.DomainObjects;
+using JacksonVeroneze.NET.Commons.Pagination;
 using MongoDB.Driver;
 
-namespace JacksonVeroneze.NET.Commons.Data.Document
+namespace JacksonVeroneze.NET.Commons.Database.Data.Document
 {
     public abstract class Repository<TEntity, TId> : IDocumentRepository<TEntity, TId>
         where TEntity : Entity, IAggregateRoot where TId : EntityId
@@ -52,10 +53,10 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
         public async Task<List<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> expression)
             => (await DbSet.FindAsync(expression)).ToList();
 
-        public async Task<List<TEntity>> FilterAsync(Pagination pagination, Expression<Func<TEntity, bool>> expression)
+        public async Task<List<TEntity>> FilterAsync(Pagination.Pagination pagination, Expression<Func<TEntity, bool>> expression)
             => (await BuidQueryable(pagination, expression)).ToList();
 
-        public async Task<PageResult<TEntity>> FilterPaginateAsync(Pagination pagination,
+        public async Task<PageResult<TEntity>> FilterPaginateAsync(Pagination.Pagination pagination,
             Expression<Func<TEntity, bool>> expression)
 
         {
@@ -73,7 +74,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
             return (int)total;
         }
 
-        private Task<IAsyncCursor<TEntity>> BuidQueryable(Pagination pagination,
+        private Task<IAsyncCursor<TEntity>> BuidQueryable(Pagination.Pagination pagination,
             Expression<Func<TEntity, bool>> expression)
 
         {

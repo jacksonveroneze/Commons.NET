@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 
-namespace JacksonVeroneze.NET.Commons.Data.Document
+namespace JacksonVeroneze.NET.Commons.Database.Data.Document
 {
     public interface IMongoContext
     {

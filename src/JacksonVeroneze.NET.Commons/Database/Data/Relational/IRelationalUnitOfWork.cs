@@ -1,4 +1,4 @@
-namespace JacksonVeroneze.NET.Commons.Data.Relational
+namespace JacksonVeroneze.NET.Commons.Database.Data.Relational
 {
     public interface IRelationalUnitOfWork : IUnitOfWork
     {
