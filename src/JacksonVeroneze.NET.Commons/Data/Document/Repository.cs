@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace JacksonVeroneze.NET.Commons.Data.Document
 {
-    public abstract class Repository<TEntity, TId> : IDocumentRepository<TEntity, TId>, IDisposable
+    public abstract class Repository<TEntity, TId> : IDocumentRepository<TEntity, TId>
         where TEntity : Entity, IAggregateRoot where TId : EntityId
     {
         protected readonly IMongoContext Context;
@@ -55,7 +55,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
         public async Task<List<TEntity>> FilterAsync(Pagination pagination, Expression<Func<TEntity, bool>> expression)
             => (await BuidQueryable(pagination, expression)).ToList();
 
-        public async Task<Pageable<TEntity>> FilterPaginateAsync(Pagination pagination,
+        public async Task<PageResult<TEntity>> FilterPaginateAsync(Pagination pagination,
             Expression<Func<TEntity, bool>> expression)
 
         {
@@ -63,7 +63,7 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
 
             List<TEntity> data = (await BuidQueryable(pagination, expression)).ToList();
 
-            return FactoryPageable(data, Convert.ToInt32(total), pagination.Skip ??= 0, pagination.Take ??= 30);
+            return FactoryPageable(data, Convert.ToInt32(total), pagination.Page, pagination.PageSize);
         }
 
         public async Task<int> CountAsync(Expression<Func<TEntity, bool>> expression)
@@ -79,21 +79,22 @@ namespace JacksonVeroneze.NET.Commons.Data.Document
         {
             return DbSet.FindAsync(expression, new FindOptions<TEntity>()
             {
-                Skip = pagination.Skip,
-                Limit = pagination.Take,
+                Skip = pagination.Page,
+                Limit = pagination.PageSize,
                 Sort = Builders<TEntity>.Sort.Descending(nameof(Entity.CreatedAt))
             });
         }
 
-        protected Pageable<TType> FactoryPageable<TType>(IList<TType> data, int total, int skip, int take)
+        protected PageResult<TType> FactoryPageable<TType>(IList<TType> data, int total, int skip, int take)
             where TType : class
         {
             return new()
             {
                 Data = data,
-                Total = total,
-                Pages = total > 0 ? (int)Math.Ceiling(total / (decimal)(take)) : 0,
-                CurrentPage = skip <= 0 ? 1 : skip
+                TotalElements = total,
+                TotalPages = total > 0 ? (int)Math.Ceiling(total / (decimal)(take)) : 0,
+                CurrentPage = skip <= 0 ? 1 : skip,
+                PageSize = take,
             };
         }
 

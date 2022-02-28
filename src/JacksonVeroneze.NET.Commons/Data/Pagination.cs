@@ -2,8 +2,8 @@ namespace JacksonVeroneze.NET.Commons.Data
 {
     public class Pagination
     {
-        public int? Skip { get; set; } = 0;
+        public int Page { get; set; } = 1;
 
-        public int? Take { get; set; } = 30;
+        public int PageSize { get; set; } = 30;
     }
 }

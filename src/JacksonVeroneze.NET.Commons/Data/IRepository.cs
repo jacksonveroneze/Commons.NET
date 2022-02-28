@@ -6,7 +6,9 @@ using JacksonVeroneze.NET.Commons.DomainObjects;
 
 namespace JacksonVeroneze.NET.Commons.Data
 {
-    public interface IRepository<TEntity, in TId> : IDisposable where TEntity : IAggregateRoot where TId : EntityId
+    public interface IRepository<TEntity, in TId> : 
+        IDisposable where TEntity : 
+        IAggregateRoot where TId : EntityId
     {
         public IUnitOfWork UnitOfWork { get; set; }
 
@@ -22,9 +24,11 @@ namespace JacksonVeroneze.NET.Commons.Data
 
         Task<List<TEntity>> FilterAsync(Expression<Func<TEntity, bool>> expression);
 
-        Task<List<TEntity>> FilterAsync(Pagination pagination, Expression<Func<TEntity, bool>> expression);
+        Task<List<TEntity>> FilterAsync(Pagination pagination, 
+            Expression<Func<TEntity, bool>> expression);
 
-        Task<Pageable<TEntity>> FilterPaginateAsync(Pagination pagination, Expression<Func<TEntity, bool>> expression);
+        Task<PageResult<TEntity>> FilterPaginateAsync(Pagination pagination, 
+            Expression<Func<TEntity, bool>> expression);
 
         Task<int> CountAsync(Expression<Func<TEntity, bool>> expression);
     }

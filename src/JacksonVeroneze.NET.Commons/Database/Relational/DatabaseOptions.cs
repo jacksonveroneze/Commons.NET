@@ -8,6 +8,6 @@ namespace JacksonVeroneze.NET.Commons.Database.Relational
 
         public bool EnableSensitiveDataLogging { get; set; }
 
-        public bool UseLazyLoadingProxies { get; set; } = true;
+        public bool UseLazyLoadingProxies { get; set; }
     }
 }
