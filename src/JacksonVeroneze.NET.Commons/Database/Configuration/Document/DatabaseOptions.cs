@@ -1,5 +1,3 @@
-using Serilog;
-
 namespace JacksonVeroneze.NET.Commons.Database.Configuration.Document
 {
     public class DatabaseOptions
@@ -9,7 +7,5 @@ namespace JacksonVeroneze.NET.Commons.Database.Configuration.Document
         public string DatabaseName { get; set; }
 
         public bool EnableSensitiveDataLogging { get; set; }
-
-        public ILogger Logger { get; set; }
     }
 }

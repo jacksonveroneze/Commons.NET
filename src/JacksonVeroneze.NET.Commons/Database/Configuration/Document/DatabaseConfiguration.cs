@@ -22,14 +22,14 @@ namespace JacksonVeroneze.NET.Commons.Database.Configuration.Document
             if (optionsConfig.EnableSensitiveDataLogging)
                 mongoClientSettings.ClusterConfigurator = cb =>
                 {
-                    cb.Subscribe<CommandStartedEvent>(e =>
-                        optionsConfig.Logger.Information($"{e.CommandName} - {e.Command.ToJson()}"));
-
-                    cb.Subscribe<CommandSucceededEvent>(e =>
-                        optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}"));
-
-                    cb.Subscribe<CommandFailedEvent>(e =>
-                        optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}"));
+                    // cb.Subscribe<CommandStartedEvent>(e =>
+                    //     optionsConfig.Logger.Information($"{e.CommandName} - {e.Command.ToJson()}"));
+                    //
+                    // cb.Subscribe<CommandSucceededEvent>(e =>
+                    //     optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}"));
+                    //
+                    // cb.Subscribe<CommandFailedEvent>(e =>
+                    //     optionsConfig.Logger.Information($"{e.CommandName} - {e.ToJson()}"));
                 };
 
             services.AddScoped<IMongoContext>(x =>
