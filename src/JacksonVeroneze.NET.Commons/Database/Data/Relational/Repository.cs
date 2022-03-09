@@ -138,7 +138,8 @@ namespace JacksonVeroneze.NET.Commons.Database.Data.Relational
                 Data = data,
                 TotalElements = total,
                 TotalPages = total > 0 ? (int)Math.Ceiling(total / (decimal)(pageSize)) : 0,
-                CurrentPage = page <= 0 ? 1 : page
+                CurrentPage = page <= 0 ? 1 : page,
+                PageSize = pageSize
             };
         }
 
